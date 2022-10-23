@@ -6,4 +6,4 @@ class ExportDialog(QDialog):
     """程序主窗口"""
     def __init__(self):
         super(ExportDialog, self).__init__()
-        uic.loadUi("exportDialog.ui")
+        uic.loadUi("gui/exportDialog.ui")
