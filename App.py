@@ -1,22 +1,21 @@
 import sys
+sys.path.append("E:\\Program Files\\QGIS 3.22.10\\apps\\qgis-ltr\\python\\plugins")
+
 import time
-
+from plugins.processing.core.Processing import Processing
 from qgis.core import QgsApplication
-
-from gui.MainWindow import MainWindow
-from SplashScreen import SplashScreen
-import config
+from widgets.mainWindow import MainWindow
+from widgets.SplashScreen import SplashScreen
 
 
 class App:
 
     def __init__(self):
-        config.setup_env()
         self.qgs = QgsApplication([], True)
         self.qgs.setPrefixPath('qgis', True)
         self.qgs.initQgis()
         self.qgs.setQuitOnLastWindowClosed(True)
-        # Processing.initialize()
+        Processing.initialize()
         self.win = MainWindow()
         self.splash = SplashScreen()
 

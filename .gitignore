@@ -141,4 +141,4 @@ cython_debug/
 # ixuejieGIS project data
 data/
 .idea/
-
+/temp/
