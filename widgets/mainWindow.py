@@ -1,4 +1,5 @@
 from PyQt5 import uic
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QMenuBar, QAction, QFileDialog
 from plugins.processing.gui.AlgorithmDialog import AlgorithmDialog
@@ -11,11 +12,18 @@ from .factory import RendererFactory, LayerFactory
 alg_cache = {}
 
 
+def decdeg2dms(dd):
+    mnt, sec = divmod(dd * 3600, 60)
+    deg, mnt = divmod(mnt, 60)
+    return int(deg), int(mnt), sec
+
+
 class MainWindow(QMainWindow):
     """程序主窗口"""
 
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.is_DMS = False
         self.loaded_layers = []
         uic.loadUi("ui/mainWindow.ui", self)
 
@@ -24,6 +32,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon("res/icon/title.png"))
         self.canvas = QgsMapCanvas()
         self.setCentralWidget(self.canvas)
+        self.canvas.xyCoordinates.connect(self.showLngLat)
 
         # 内容列表
         self.toc_view = QgsLayerTreeView(self.tocDock)
@@ -36,6 +45,7 @@ class MainWindow(QMainWindow):
         self.toc_view.setModel(self.toc_model)
         self.toc_bridge = QgsLayerTreeMapCanvasBridge(QgsProject.instance().layerTreeRoot(), self.canvas)
         self.tocDock.setWidget(self.toc_view)
+        self.toc_view.currentLayerChanged.connect(self.currentLayerChanged)
 
         # 菜单栏
         self.actionImportVectorLayer.triggered.connect(lambda: self.load_layer("*.shp"))
@@ -58,6 +68,8 @@ class MainWindow(QMainWindow):
             "渐变符号渲染": ["./res/icon/graduated.png", lambda: self.actionLayerSymbolTriggered('graduated')]}
         self.export_map = {
             "冲冲冲！": ["./res/icon/export.png", lambda: self.actionExportMapTiggered()]}
+        self.switches = {
+            "切换坐标显示格式": ["./res/icon/cc/dms.jpg", self.actionShowDMS]}
 
         self.add_action_group(self.view_tools, checkable=True)
         self.add_action_group(self.focus_tool)
@@ -67,6 +79,11 @@ class MainWindow(QMainWindow):
         self.add_action_group(self.symbol_renderers)
         self.toolbar.addSeparator()
         self.add_action_group(self.export_map)
+        self.toolbar.addSeparator()
+        self.add_action_group(self.switches)
+
+        # 工具箱
+        self.toolboxDock.setVisible(False)
 
     def add_action_group(self, group: dict, checkable=False):
         for name, params in group.items():
@@ -162,3 +179,22 @@ class MainWindow(QMainWindow):
         dlg = ExportDialog(self)
         dlg.setLayer(self.toc_view.currentLayer())
         dlg.show()
+
+    def actionShowDMS(self):
+        self.is_DMS = not self.is_DMS
+        if self.is_DMS:
+            self.switches["切换坐标显示格式"][-1].setStatusTip("切换到十进制度°格式")
+            self.switches["切换坐标显示格式"][-1].setToolTip("切换到十进制度°格式")
+        else:
+            self.switches["切换坐标显示格式"][-1].setStatusTip("切换到度°分′秒″格式")
+            self.switches["切换坐标显示格式"][-1].setToolTip("切换到度°分′秒″格式")
+
+    def showLngLat(self, point):
+        x = point.x()
+        y = point.y()
+        if self.is_DMS:
+            xd, xm, xs = decdeg2dms(x)
+            yd, ym, ys = decdeg2dms(x)
+            self.statusbar.showMessage(f'经度:{xd}°{xm}′{xs:.3f}″, 纬度:{yd}°{ym}′{ys:.3f}″')
+        else:
+            self.statusbar.showMessage(f'经度:{x:.6f}, 纬度:{y:.6f}')

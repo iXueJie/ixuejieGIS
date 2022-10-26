@@ -18,18 +18,18 @@ class AttributeTableDialog(QDialog):
                  parent=None):
         super(AttributeTableDialog, self).__init__(parent)
         self.setWindowTitle("属性表")
+        self.setWindowModality(Qt.ApplicationModal)
         self.resize(800, 600)
 
-        layout = QHBoxLayout(self)
-        layer_cache = QgsVectorLayerCache(layer, 10240)
-        table_model = QgsAttributeTableModel(layer_cache)
-        table_model.loadLayer()
-        table_model_filtered = QgsAttributeTableFilterModel(canvas, table_model)
-        table_view = QgsAttributeTableView(self)
+        self.layout = QHBoxLayout(self)
+        self.layer_cache = QgsVectorLayerCache(layer, 10240)
+        self.table_model = QgsAttributeTableModel(self.layer_cache)
+        self.table_model.loadLayer()
+        self.table_model_filtered = QgsAttributeTableFilterModel(canvas, self.table_model)
+        self.table_view = QgsAttributeTableView(self)
+        self.table_view.setModel(self.table_model_filtered)
+        self.layout.addWidget(self.table_view)
 
-        layout.addWidget(table_view)
-        table_view.setModel(table_model_filtered)
-        self.setWindowModality(Qt.WindowModal)
 
 
 class ExportDialog(QDialog):
