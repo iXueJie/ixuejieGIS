@@ -1,3 +1,7 @@
+from qgis._core import QgsLayerTreeModel, QgsProject
+from qgis._gui import QgsLayerTreeView, QgsLayerTreeMapCanvasBridge
+
+
 class TOC:
 
     def __init__(self, window):

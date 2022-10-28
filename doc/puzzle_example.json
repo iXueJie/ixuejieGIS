@@ -1,0 +1,16 @@
+{
+    "name": "Name of your puzzle set",
+    "content": [
+        {
+            "_id": 10001,
+            "problem": "Puzzle description?",
+            "options": [
+                "option_a",
+                "option_b",
+                "option_c",
+                "option_d"
+            ],
+            "key_idx": 0
+        }
+    ]
+}

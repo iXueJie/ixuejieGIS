@@ -1,7 +1,6 @@
 from PyQt5 import uic
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QMenuBar, QAction, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QAction, QFileDialog
 from plugins.processing.gui.AlgorithmDialog import AlgorithmDialog
 from qgis._core import QgsApplication, QgsStyle, QgsLayerTreeModel, QgsProject, QgsVectorLayer
 from qgis._gui import QgsMapToolZoom, QgsMapToolPan, QgsMapCanvas, QgsLayerTreeView, QgsLayerTreeMapCanvasBridge
@@ -9,10 +8,10 @@ from qgis._gui import QgsMapToolZoom, QgsMapToolPan, QgsMapCanvas, QgsLayerTreeV
 from .dialog import ExportDialog, AttributeTableDialog
 from .factory import RendererFactory, LayerFactory
 
-alg_cache = {}
+_alg_cache = {}
 
 
-def decdeg2dms(dd):
+def _decdeg2dms(dd):
     mnt, sec = divmod(dd * 3600, 60)
     deg, mnt = divmod(mnt, 60)
     return int(deg), int(mnt), sec
@@ -148,10 +147,10 @@ class MainWindow(QMainWindow):
             self.proc_tools["属性表"][-1].setEnabled(False)
 
     def actionProcToolsTriggered(self, _id: str):
-        global alg_cache
-        if _id.lower() not in alg_cache:
-            alg_cache[_id] = QgsApplication.processingRegistry().algorithmById(_id).create()
-        alg = alg_cache[_id].create()
+        global _alg_cache
+        if _id.lower() not in _alg_cache:
+            _alg_cache[_id] = QgsApplication.processingRegistry().algorithmById(_id).create()
+        alg = _alg_cache[_id].create()
         dlg = AlgorithmDialog(alg, parent=self)
         # dlg.show()
         dlg.exec_()
@@ -193,8 +192,8 @@ class MainWindow(QMainWindow):
         x = point.x()
         y = point.y()
         if self.is_DMS:
-            xd, xm, xs = decdeg2dms(x)
-            yd, ym, ys = decdeg2dms(x)
+            xd, xm, xs = _decdeg2dms(x)
+            yd, ym, ys = _decdeg2dms(y)
             self.statusbar.showMessage(f'经度:{xd}°{xm}′{xs:.3f}″, 纬度:{yd}°{ym}′{ys:.3f}″')
         else:
             self.statusbar.showMessage(f'经度:{x:.6f}, 纬度:{y:.6f}')

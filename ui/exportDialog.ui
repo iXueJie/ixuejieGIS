@@ -190,7 +190,13 @@ QLabel {
            <property name="leftMargin">
             <number>0</number>
            </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
            <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
             <number>0</number>
            </property>
            <item row="2" column="2">
@@ -398,6 +404,12 @@ QLabel {
               <widget class="QgsFontButton" name="titleFont">
                <property name="text">
                 <string>字体</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>215</width>
+                 <height>25</height>
+                </size>
                </property>
                <property name="currentFont">
                 <font>
@@ -628,7 +640,22 @@ QLabel {
               <set>Qt::AlignCenter</set>
              </property>
              <property name="formAlignment">
-              <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="horizontalSpacing">
+              <number>0</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
              </property>
              <item row="0" column="0">
               <widget class="QLabel" name="label_16">
@@ -657,6 +684,15 @@ QLabel {
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_13">
                <property name="sizePolicy">
@@ -776,9 +812,7 @@ QLabel {
    <header>qgsfontbutton.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../res/img/bgimg.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>
