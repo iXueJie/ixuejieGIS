@@ -186,32 +186,53 @@ QLabel {
           <property name="title">
            <string>尺寸</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
           <layout class="QGridLayout" name="gridLayout">
            <property name="leftMargin">
-            <number>0</number>
+            <number>7</number>
            </property>
            <property name="topMargin">
             <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>0</number>
+            <number>7</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_6">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <property name="horizontalSpacing">
+            <number>7</number>
+           </property>
+           <property name="verticalSpacing">
+            <number>5</number>
+           </property>
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="mapScale">
+             <property name="wrapping">
+              <bool>false</bool>
              </property>
-             <property name="text">
-              <string>宽</string>
+             <property name="frame">
+              <bool>true</bool>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="maximum">
+              <double>10.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.200000000000000</double>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+             <property name="value">
+              <double>1.200000000000000</double>
              </property>
             </widget>
            </item>
@@ -225,41 +246,6 @@ QLabel {
              </property>
              <property name="text">
               <string>y</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QLineEdit" name="sizeY">
-             <property name="minimumSize">
-              <size>
-               <width>120</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>120</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>20</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>x</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -282,22 +268,19 @@ QLabel {
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="sizeX">
-             <property name="minimumSize">
-              <size>
-               <width>120</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>120</width>
-               <height>24</height>
-              </size>
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
              <property name="text">
-              <string>40</string>
+              <string>宽</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -336,31 +319,22 @@ QLabel {
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QDoubleSpinBox" name="mapScale">
-             <property name="wrapping">
-              <bool>false</bool>
+           <item row="1" column="3">
+            <widget class="QLineEdit" name="sizeY">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>24</height>
+              </size>
              </property>
-             <property name="frame">
-              <bool>true</bool>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>24</height>
+              </size>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="maximum">
-              <double>10.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>0.200000000000000</double>
-             </property>
-             <property name="stepType">
-              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-             </property>
-             <property name="value">
-              <double>1.200000000000000</double>
+             <property name="text">
+              <string>20</string>
              </property>
             </widget>
            </item>
@@ -383,6 +357,41 @@ QLabel {
              </property>
             </widget>
            </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>x</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="sizeX">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>40</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -400,22 +409,35 @@ QLabel {
            </property>
            <item>
             <layout class="QFormLayout" name="formLayout_2">
-             <item row="1" column="1">
-              <widget class="QgsFontButton" name="titleFont">
+             <property name="verticalSpacing">
+              <number>15</number>
+             </property>
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>3</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
+              <number>3</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_8">
                <property name="text">
-                <string>字体</string>
+                <string>标题</string>
                </property>
-               <property name="iconSize">
-                <size>
-                 <width>215</width>
-                 <height>25</height>
-                </size>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
-               <property name="currentFont">
-                <font>
-                 <family>段宁毛笔行书(修订版）</family>
-                 <pointsize>28</pointsize>
-                </font>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="title">
+               <property name="text">
+                <string>地图</string>
                </property>
               </widget>
              </item>
@@ -432,20 +454,22 @@ QLabel {
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_8">
+             <item row="1" column="1">
+              <widget class="QgsFontButton" name="titleFont">
                <property name="text">
-                <string>标题</string>
+                <string>字体</string>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
+               <property name="iconSize">
+                <size>
+                 <width>215</width>
+                 <height>25</height>
+                </size>
                </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="title">
-               <property name="text">
-                <string>地图</string>
+               <property name="currentFont">
+                <font>
+                 <family>段宁毛笔行书(修订版）</family>
+                 <pointsize>28</pointsize>
+                </font>
                </property>
               </widget>
              </item>
@@ -649,13 +673,13 @@ QLabel {
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>0</number>
+              <number>7</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>0</number>
+              <number>7</number>
              </property>
              <item row="0" column="0">
               <widget class="QLabel" name="label_16">

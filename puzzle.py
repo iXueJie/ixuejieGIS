@@ -1,3 +1,4 @@
+import copy
 import json
 import os.path
 import random
@@ -14,17 +15,17 @@ class Puzzle:
         self._id = _id
         self.problem = problem
         self.options = options
-        self._key_idx = key_idx
+        self.key_idx = key_idx
 
     def shuffle(self):
         pairs = [[i, item] for i, item in enumerate(self.options)]
         random.shuffle(pairs)
         idx, self.options = list(zip(*pairs))
-        self._key_idx = idx.index(self._key_idx)
+        self.key_idx = idx.index(self.key_idx)
 
     @property
     def key(self):
-        return self.options[self._key_idx]
+        return self.options[self.key_idx]
 
     @property
     def id(self):
@@ -35,15 +36,18 @@ class PuzzleSet:
     """问题集类。
 
     提供了基本的导入问题，追加问题，打乱选项，返回答案的功能。
+
+    每次使用 ``pop()`` 方法获得一个 ``Puzzle`` 对象后,该对象将会被视为已使用的，
+    移除问题集，即每一个问题只能使用一次。
     """
 
     def __init__(self, filepath: str, *, name="", shuffle=False):
         """构造问题集。
         参数 filepath 与 shuffle 只需要提供一个
 
-        :param filepath: 问题的路径。只支持 json 格式。若filepath为 “”，问题集为空。
-        :param name: 问题集的名字。
-        :param shuffle: 是否打乱题目选项的顺序
+        :param filepath: 问题的路径。只支持 json 格式。若filepath为 “”，返回空问题集。
+        :param name: 问题集的名字。默认从json文件中读取。
+        :param shuffle: 是否打乱题目选项的顺序。
         """
 
         self.puzzles = set()
@@ -55,7 +59,15 @@ class PuzzleSet:
             self.shuffle()
 
     def __iter__(self):
-        return iter(self.puzzles)
+        return PuzzleSetIterator(self)
+
+    @property
+    def size(self):
+        return len(self.puzzles) + len(self.used)
+
+    @property
+    def settled(self):
+        return len(self.used)
 
     def shuffle(self) -> None:
         """打乱问题集中所有题目选项的顺序。"""
@@ -63,24 +75,30 @@ class PuzzleSet:
         for p in self.puzzles:
             p.shuffle()
 
+    def limit(self, limit: int):
+        if limit > -1:
+            while len(self.puzzles) > limit:
+                self.puzzles.pop()
+        return self
+
+    def reset(self):
+        """重置问题集至全新状态"""
+        self.puzzles.update(self.used)
+
     def pop(self):
         one = self.puzzles.pop()
         self.used.add(one)
         return one
 
-    def append(self, filepath: str, shuffle=False) -> None:
-        """
-        从文件中导入题目并追加到已有问题集中。
-
-        :param filepath: 文件路径。
-        :param shuffle: 是否打乱新加入题目选项的顺序。
-        """
-
-        new_puzzles = PuzzleSet(filepath, shuffle=shuffle)
-        self.puzzles.update(new_puzzles.puzzles)
-
     def update(self, puzzles: Iterable[Puzzle]):
         self.puzzles.update(puzzles)
+
+    def subset(self, k: int):
+        if k > self.size:
+            raise ValueError(f"子集大小{k=}大于原问题集大小。")
+        temp_set = PuzzleSet("", name=self.name)
+        temp_set.update(random.sample(self.puzzles | self.used, k=k))
+        return temp_set
 
     def import_puzzles(self, filepath: str) -> None:
         """
@@ -89,7 +107,6 @@ class PuzzleSet:
         :param filepath: 文件路径。
         """
 
-        print("log")
         filename = os.path.basename(filepath)
         if not filename.endswith("json"):
             raise ValueError("问题文件只支持json格式，详细格式见文档...")
@@ -102,6 +119,32 @@ class PuzzleSet:
             if self.name == "":
                 self.name = tmp_set.name
 
+    def append_json(self, filepath: str, shuffle=False) -> None:
+        """
+        从文件中导入题目并追加到已有问题集中。
+
+        :param filepath: 文件路径。
+        :param shuffle: 是否打乱新加入题目选项的顺序。
+        :param limit: 正整数表示只读取前 ``limit`` 个的问题。默认不限制。
+        """
+
+        new_puzzles = PuzzleSet(filepath, shuffle=shuffle)
+        self.puzzles.update(new_puzzles.puzzles)
+
+
+class PuzzleSetIterator:
+
+    def __init__(self, puzzle_set: PuzzleSet):
+        self.ps = puzzle_set
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self.ps.puzzles:
+            raise StopIteration
+        return self.ps.pop()
+
 
 class PuzzleJSONEncoder(json.JSONEncoder):
 
@@ -112,7 +155,7 @@ class PuzzleJSONEncoder(json.JSONEncoder):
                 "_id": o.id,
                 "problem": o.problem,
                 "options": o.options,
-                "key_idx": o._key_idx,
+                "key_idx": o.key_idx,
             }
         else:
             # Base class will raise the TypeError.

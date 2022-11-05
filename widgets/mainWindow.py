@@ -5,7 +5,7 @@ from plugins.processing.gui.AlgorithmDialog import AlgorithmDialog
 from qgis._core import QgsApplication, QgsStyle, QgsLayerTreeModel, QgsProject, QgsVectorLayer
 from qgis._gui import QgsMapToolZoom, QgsMapToolPan, QgsMapCanvas, QgsLayerTreeView, QgsLayerTreeMapCanvasBridge
 
-from .dialog import ExportDialog, AttributeTableDialog
+from .dialog import ExportDialog, AttributeTableDialog, ForgeDialog
 from .factory import RendererFactory, LayerFactory
 
 _alg_cache = {}
@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.is_DMS = False
         self.loaded_layers = []
-        uic.loadUi("ui/mainWindow.ui", self)
+        uic.loadUi("ui/MainWindow.ui", self)
 
         self.map_tool = None
         self.view_tool_lock = ""
@@ -83,6 +83,7 @@ class MainWindow(QMainWindow):
 
         # 工具箱
         self.toolboxDock.setVisible(False)
+        self.searchBox.valueChanged.connect(self.actionForgeTriggerd)
 
     def add_action_group(self, group: dict, checkable=False):
         for name, params in group.items():
@@ -197,3 +198,12 @@ class MainWindow(QMainWindow):
             self.statusbar.showMessage(f'经度:{xd}°{xm}′{xs:.3f}″, 纬度:{yd}°{ym}′{ys:.3f}″')
         else:
             self.statusbar.showMessage(f'经度:{x:.6f}, 纬度:{y:.6f}')
+
+    def actionForgeTriggerd(self, value: str):
+        # text = self.searchBox.value()
+        print(value)
+        if value in ["异世相遇，尽享美味", "异世相遇尽享美味", "异世相遇 尽享美味"]:
+            dlg = ForgeDialog(self)
+            dlg.show()
+            dlg.exec_()
+            return
