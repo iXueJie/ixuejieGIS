@@ -1,7 +1,4 @@
 import sys
-
-sys.path.append("E:\\Program Files\\QGIS 3.22.10\\apps\\qgis-ltr\\python\\plugins")
-
 import time
 from plugins.processing.core.Processing import Processing
 from qgis.core import QgsApplication
@@ -17,7 +14,7 @@ class App:
         self.qgs.setPrefixPath('qgis', True)
         self.qgs.initQgis()
         self.qgs.setQuitOnLastWindowClosed(True)
-        # self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5', palette=qdarkstyle.LightPalette))
+        self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5', palette=qdarkstyle.LightPalette))
         # self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
         Processing.initialize()
         self.win = MainWindow()

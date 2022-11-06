@@ -6,7 +6,7 @@ import time
 from PyQt5 import uic
 from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QPixmap, QImage, QColor, QIcon
-from PyQt5.QtWidgets import QDialog, QHBoxLayout, QWidget, QDialogButtonBox
+from PyQt5.QtWidgets import QDialog, QHBoxLayout, QWidget, QDialogButtonBox, QFrame
 from qgis._core import QgsVectorLayerCache, QgsVectorLayer, QgsProject, QgsLayout, QgsLayoutExporter, QgsLayoutItemMap, \
     QgsMapSettings, QgsRectangle, QgsLayoutPoint, QgsUnitTypes, QgsLayoutItemLabel, QgsLayoutItemLegend, \
     QgsLayoutItemScaleBar, QgsLayoutItemMapGrid, QgsApplication
@@ -241,17 +241,18 @@ class ForgeDialog(QDialog):
     trialBeginWith = pyqtSignal(PuzzleSet, name='systemSignal')
     trialDone = pyqtSignal(name='trialDone')
 
+    puzzle_sets = [
+        PuzzleSet("res/puzzle/计算机.json", shuffle=True).subset(2),
+        PuzzleSet("res/puzzle/动画.json", shuffle=True).subset(5),
+        PuzzleSet("res/puzzle/数学-物理.json", shuffle=True).subset(2),
+        PuzzleSet("res/puzzle/专业.json", shuffle=True).subset(5),
+        PuzzleSet("res/puzzle/生活.json", shuffle=True).subset(3),
+    ]
+
     def __init__(self, parent=None):
         super(ForgeDialog, self).__init__(parent)
         uic.loadUi("ui/ForgeDialog.ui", self)
-
-        self.puzzle_sets = [
-            PuzzleSet("res/puzzle/计算机.json", shuffle=True).subset(2),
-            PuzzleSet("res/puzzle/动画.json", shuffle=True).subset(5),
-            PuzzleSet("res/puzzle/数学-物理.json", shuffle=True).subset(2),
-            PuzzleSet("res/puzzle/专业.json", shuffle=True).subset(5),
-            PuzzleSet("res/puzzle/生活.json", shuffle=True).subset(3),
-        ]
+        # self.setWindowFlags(Qt.WindowTitleHint)
 
         self.nahidaIcon.setPixmap(QPixmap("res/icon/cc/forge-title.jpg"))
         self.system_widget = SystemWidget()
@@ -328,6 +329,15 @@ class ForgeDialog(QDialog):
         print("skip")
 
 
+class ForgeTipWidget(QFrame):
+
+    def __init__(self, parent=None):
+        super(ForgeTipWidget, self).__init__(parent=parent)
+        uic.loadUi("ui/ForgeTipWidget.ui", self)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.img.setPixmap(QPixmap('res/img/entry.jpg'))
+
+
 def _delay_time(s: str):
     return len(s) / 5 + 0.5
 
@@ -343,6 +353,6 @@ if __name__ == "__main__":
     app.setPrefixPath('qgis', True)
     app.initQgis()
     app.setQuitOnLastWindowClosed(True)
-    win = ExportDialog()
+    win = ForgeDialog()
     win.show()
     exit(app.exec_())

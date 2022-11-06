@@ -1,0 +1,105 @@
+qgis:addfieldtoattributestable,Add field to attributes table
+qgis:advancedpythonfieldcalculator,Advanced Python field calculator
+qgis:aggregate,Aggregate
+qgis:aspect,Aspect
+qgis:barplot,Bar plot
+qgis:basicstatisticsforfields,Basic statistics for fields
+qgis:boxplot,Box plot
+qgis:buildvirtualvector,Build virtual vector
+qgis:checkvalidity,Check validity
+qgis:concavehull,Concave hull (alpha shapes)
+qgis:convertgeometrytype,Convert geometry type
+qgis:countpointsinpolygon,Count points in polygon
+qgis:createattributeindex,Create attribute index
+qgis:createconstantrasterlayer,Create constant raster layer
+qgis:creategrid,Create grid
+qgis:createpointslayerfromtable,Create points layer from table
+qgis:createspatialindex,Create spatial index
+qgis:definecurrentprojection,Define layer projection
+qgis:delaunaytriangulation,Delaunay triangulation
+qgis:deletecolumn,Drop field(s)
+qgis:deleteduplicategeometries,Delete duplicate geometries
+qgis:densifygeometries,Densify by count
+qgis:densifygeometriesgivenaninterval,Densify by interval
+qgis:distancematrix,Distance matrix
+qgis:distancetonearesthublinetohub,Distance to nearest hub (line to hub)
+qgis:distancetonearesthubpoints,Distance to nearest hub (points)
+qgis:eliminateselectedpolygons,Eliminate selected polygons
+qgis:executesql,Execute SQL
+qgis:exportaddgeometrycolumns,Add geometry attributes
+qgis:extractspecificvertices,Extract specific vertices
+qgis:fieldcalculator,Field calculator
+qgis:findprojection,Find projection
+qgis:generatepointspixelcentroidsalongline,Generate points (pixel centroids) along line
+qgis:generatepointspixelcentroidsinsidepolygons,Generate points (pixel centroids) inside polygons
+qgis:geometrybyexpression,Geometry by expression
+qgis:heatmapkerneldensityestimation,Heatmap (Kernel Density Estimation)
+qgis:hillshade,Hillshade
+qgis:hypsometriccurves,Hypsometric curves
+qgis:idwinterpolation,IDW interpolation
+qgis:importintopostgis,Export to PostgreSQL
+qgis:importintospatialite,Export to SpatiaLite
+qgis:joinattributesbylocation,Join attributes by location
+qgis:joinbylocationsummary,Join attributes by location (summary)
+qgis:keepnbiggestparts,Keep N biggest parts
+qgis:knearestconcavehull,Concave hull (k-nearest neighbor)
+qgis:linestopolygons,Lines to polygons
+qgis:listuniquevalues,List unique values
+qgis:meanandstandarddeviationplot,Mean and standard deviation plot
+qgis:minimumboundinggeometry,Minimum bounding geometry
+qgis:nearestneighbouranalysis,Nearest neighbour analysis
+qgis:orthogonalize,Orthogonalize
+qgis:pointsalonglines,Points along geometry
+qgis:pointsdisplacement,Points displacement
+qgis:pointstopath,Points to path
+qgis:polarplot,Polar plot
+qgis:poleofinaccessibility,Pole of inaccessibility
+qgis:polygonfromlayerextent,Extract layer extent
+qgis:polygonize,Polygonize
+qgis:polygonstolines,Polygons to lines
+qgis:postgisexecuteandloadsql,PostgreSQL execute and load SQL
+qgis:postgisexecutesql,PostgreSQL execute SQL
+qgis:randomextract,Random extract
+qgis:randomextractwithinsubsets,Random extract within subsets
+qgis:randompointsalongline,Random points along line
+qgis:randompointsinextent,Random points in extent
+qgis:randompointsinlayerbounds,Random points in layer bounds
+qgis:randompointsinsidepolygons,Random points inside polygons
+qgis:randomselection,Random selection
+qgis:randomselectionwithinsubsets,Random selection within subsets
+qgis:rastercalculator,Raster calculator
+qgis:rasterize,Convert map to raster
+qgis:rasterlayerhistogram,Raster layer histogram
+qgis:rasterlayerstatistics,Raster layer statistics
+qgis:rastersampling,Sample raster values
+qgis:rectanglesovalsdiamondsfixed,"Rectangles, ovals, diamonds (fixed)"
+qgis:rectanglesovalsdiamondsvariable,"Rectangles, ovals, diamonds (variable)"
+qgis:refactorfields,Refactor fields
+qgis:regularpoints,Regular points
+qgis:relief,Relief
+qgis:ruggednessindex,Ruggedness index
+qgis:scatter3dplot,Vector layer scatterplot 3D
+qgis:selectbyattribute,Select by attribute
+qgis:selectbyexpression,Select by expression
+qgis:serviceareafromlayer,Service area (from layer)
+qgis:serviceareafrompoint,Service area (from point)
+qgis:setmvalue,Set M value
+qgis:setstyleforrasterlayer,Set style for raster layer
+qgis:setstyleforvectorlayer,Set style for vector layer
+qgis:setzvalue,Set Z value
+qgis:singlesidedbuffer,Single sided buffer
+qgis:slope,Slope
+qgis:snapgeometries,Snap geometries to layer
+qgis:spatialiteexecutesql,SpatiaLite execute SQL
+qgis:splitvectorlayer,Split vector layer
+qgis:statisticsbycategories,Statistics by categories
+qgis:sumlinelengths,Sum line lengths
+qgis:texttofloat,Text to float
+qgis:tininterpolation,TIN interpolation
+qgis:topologicalcoloring,Topological coloring
+qgis:truncatetable,Truncate table
+qgis:variabledistancebuffer,Variable distance buffer
+qgis:vectorlayerhistogram,Vector layer histogram
+qgis:vectorlayerscatterplot,Vector layer scatterplot
+qgis:voronoipolygons,Voronoi polygons
+qgis:zonalstatistics,Zonal statistics

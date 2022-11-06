@@ -85,6 +85,7 @@ QMenuBar {
      <string>工具</string>
     </property>
     <addaction name="actionToolbox"/>
+    <addaction name="actionForgeTip"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuLayer"/>
@@ -236,6 +237,11 @@ QMenuBar {
    </property>
    <property name="text">
     <string>工具箱</string>
+   </property>
+  </action>
+  <action name="actionForgeTip">
+   <property name="text">
+    <string>如何打开工具箱</string>
    </property>
   </action>
  </widget>

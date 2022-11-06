@@ -38,7 +38,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>勇者试炼</string>
+   <string>纳西妲的试炼</string>
   </property>
   <property name="styleSheet">
    <string notr="true">* {

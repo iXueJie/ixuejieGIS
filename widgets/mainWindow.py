@@ -1,14 +1,14 @@
+import threading
 from PyQt5 import uic
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QAction, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QAction, QFileDialog, QTreeView, QFrame, QVBoxLayout
 from plugins.processing.gui.AlgorithmDialog import AlgorithmDialog
 from qgis._core import QgsApplication, QgsStyle, QgsLayerTreeModel, QgsProject, QgsVectorLayer
 from qgis._gui import QgsMapToolZoom, QgsMapToolPan, QgsMapCanvas, QgsLayerTreeView, QgsLayerTreeMapCanvasBridge
 
-from .dialog import ExportDialog, AttributeTableDialog, ForgeDialog
+from .Algorithm import ProcessingTreeView
+from .dialog import ExportDialog, AttributeTableDialog, ForgeDialog, ForgeTipWidget
 from .factory import RendererFactory, LayerFactory
-
-_alg_cache = {}
 
 
 def _decdeg2dms(dd):
@@ -49,6 +49,7 @@ class MainWindow(QMainWindow):
         # 菜单栏
         self.actionImportVectorLayer.triggered.connect(lambda: self.load_layer("*.shp"))
         self.actionImportRasterLayer.triggered.connect(lambda: self.load_layer("*.tif"))
+        self.actionForgeTip.triggered.connect(self.actionForgeTipTriggered)
 
         # 工具栏
         self.view_tools = {
@@ -148,13 +149,9 @@ class MainWindow(QMainWindow):
             self.proc_tools["属性表"][-1].setEnabled(False)
 
     def actionProcToolsTriggered(self, _id: str):
-        global _alg_cache
-        if _id.lower() not in _alg_cache:
-            _alg_cache[_id] = QgsApplication.processingRegistry().algorithmById(_id).create()
-        alg = _alg_cache[_id].create()
+        alg = QgsApplication.processingRegistry().algorithmById(_id).create()
         dlg = AlgorithmDialog(alg, parent=self)
-        # dlg.show()
-        dlg.exec_()
+        dlg.show()
 
     def actionAttributeTableTriggered(self):
         layer = self.toc_view.currentLayer()
@@ -200,10 +197,23 @@ class MainWindow(QMainWindow):
             self.statusbar.showMessage(f'经度:{x:.6f}, 纬度:{y:.6f}')
 
     def actionForgeTriggerd(self, value: str):
-        # text = self.searchBox.value()
-        print(value)
         if value in ["异世相遇，尽享美味", "异世相遇尽享美味", "异世相遇 尽享美味"]:
             dlg = ForgeDialog(self)
+            dlg.trialDone.connect(self.actionForgePassed)
             dlg.show()
-            dlg.exec_()
-            return
+
+    def actionForgeTipTriggered(self):
+        dlg = ForgeTipWidget()
+        dlg.show()
+        t = threading.Timer(3, dlg.close)
+        t.setDaemon(True)
+        t.start()
+
+    def actionForgePassed(self):
+        tmp = ProcessingTreeView()
+        last_item = self.toolbox.layout().replaceWidget(self.algorithmTree, tmp)
+        last_item.widget().close()
+        self.algorithmTree = tmp
+        self.searchBox.valueChanged.disconnect()
+        self.searchBox.valueChanged.connect(self.algorithmTree.setFilterString)
+

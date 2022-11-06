@@ -1,0 +1,50 @@
+gdal:aspect,Aspect
+gdal:assignprojection,Assign projection
+gdal:buffervectors,Buffer vectors
+gdal:buildvirtualraster,Build virtual raster
+gdal:cliprasterbyextent,Clip raster by extent
+gdal:cliprasterbymasklayer,Clip raster by mask layer
+gdal:clipvectorbyextent,Clip vector by extent
+gdal:clipvectorbypolygon,Clip vector by mask layer
+gdal:colorrelief,Color relief
+gdal:contour,Contour
+gdal:convertformat,Convert format
+gdal:dissolve,Dissolve
+gdal:executesql,Execute SQL
+gdal:extractprojection,Extract projection
+gdal:fillnodata,Fill nodata
+gdal:gdal2tiles,gdal2tiles
+gdal:gdal2xyz,gdal2xyz
+gdal:gdalinfo,Raster information
+gdal:gridaverage,Grid (Moving average)
+gdal:griddatametrics,Grid (Data metrics)
+gdal:gridinversedistance,Grid (Inverse distance to a power)
+gdal:gridinversedistancenearestneighbor,Grid (IDW with nearest neighbor searching)
+gdal:gridlinear,Grid (Linear)
+gdal:gridnearestneighbor,Grid (Nearest neighbor)
+gdal:hillshade,Hillshade
+gdal:importvectorintopostgisdatabaseavailableconnections,Export to PostgreSQL (available connections)
+gdal:importvectorintopostgisdatabasenewconnection,Export to PostgreSQL (new connection)
+gdal:merge,Merge
+gdal:nearblack,Near black
+gdal:offsetcurve,Offset curve
+gdal:ogrinfo,Vector information
+gdal:onesidebuffer,One side buffer
+gdal:overviews,Build overviews (pyramids)
+gdal:pcttorgb,PCT to RGB
+gdal:pointsalonglines,Points along lines
+gdal:polygonize,Polygonize (raster to vector)
+gdal:proximity,Proximity (raster distance)
+gdal:rastercalculator,Raster calculator
+gdal:rasterize,Rasterize (vector to raster)
+gdal:rearrange_bands,Rearrange bands
+gdal:retile,Retile
+gdal:rgbtopct,RGB to PCT
+gdal:roughness,Roughness
+gdal:sieve,Sieve
+gdal:slope,Slope
+gdal:tileindex,Tile index
+gdal:tpitopographicpositionindex,Topographic Position Index (TPI)
+gdal:translate,Translate (convert format)
+gdal:triterrainruggednessindex,Terrain Ruggedness Index (TRI)
+gdal:warpreproject,Warp (reproject)

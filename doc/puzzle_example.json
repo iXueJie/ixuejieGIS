@@ -4,7 +4,18 @@
         {
             "_id": 10001,
             "problem": "Puzzle description?",
-            "options": [
+            "option": [
+                "option_a",
+                "option_b",
+                "option_c",
+                "option_d"
+            ],
+            "key_idx": 0
+        },
+        {
+            "_id": 10002,
+            "problem": "Puzzle description?",
+            "option": [
                 "option_a",
                 "option_b",
                 "option_c",
