@@ -1,6 +1,7 @@
 import sys
 import time
-from plugins.processing.core.Processing import Processing
+import config
+from PyQt5.QtGui import QIcon, QFontDatabase
 from qgis.core import QgsApplication
 from widgets.mainWindow import MainWindow
 from widgets.SplashScreen import SplashScreen
@@ -11,18 +12,21 @@ class App:
     def __init__(self):
         import qdarkstyle
         self.qgs = QgsApplication([], True)
+        QFontDatabase.addApplicationFont('res/font/FZJunLTJW_Zhun.TTF')
+        QFontDatabase.addApplicationFont('res/font/HarmonyOS_Sans_SC_Medium.ttf')
+        QFontDatabase.addApplicationFont('res/font/段宁毛笔行书修订版.ttf')
+        self.qgs.setWindowIcon(QIcon('res/icon/cc/257625.jpg'))
         self.qgs.setPrefixPath('qgis', True)
         self.qgs.initQgis()
         self.qgs.setQuitOnLastWindowClosed(True)
         self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5', palette=qdarkstyle.LightPalette))
         # self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
-        Processing.initialize()
         self.win = MainWindow()
         self.splash = SplashScreen()
 
     def run(self):
         self.splash.show()
-        time.sleep(2)
+        time.sleep(2.5)
         self.win.show()
         self.splash.finish(self.win)
         sys.exit(self.qgs.exec_())

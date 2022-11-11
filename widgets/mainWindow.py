@@ -1,7 +1,7 @@
 import threading
 from PyQt5 import uic
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QAction, QFileDialog, QTreeView, QFrame, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QAction, QFileDialog
 from plugins.processing.gui.AlgorithmDialog import AlgorithmDialog
 from qgis._core import QgsApplication, QgsStyle, QgsLayerTreeModel, QgsProject, QgsVectorLayer
 from qgis._gui import QgsMapToolZoom, QgsMapToolPan, QgsMapCanvas, QgsLayerTreeView, QgsLayerTreeMapCanvasBridge

@@ -338,6 +338,16 @@ class ForgeTipWidget(QFrame):
         self.img.setPixmap(QPixmap('res/img/entry.jpg'))
 
 
+class EssayWidget(QWidget):
+    # TODO: 作文800字，限时5分钟。
+    def __init__(self, parent=None):
+        super(EssayWidget, self).__init__(parent=parent)
+        uic.loadUi("ui/EssayWidget.ui", self)
+
+
+"""--------------------------局部函数---------------------------"""
+
+
 def _delay_time(s: str):
     return len(s) / 5 + 0.5
 
@@ -353,6 +363,6 @@ if __name__ == "__main__":
     app.setPrefixPath('qgis', True)
     app.initQgis()
     app.setQuitOnLastWindowClosed(True)
-    win = ForgeDialog()
+    win = EssayWidget()
     win.show()
     exit(app.exec_())

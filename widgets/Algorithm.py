@@ -19,7 +19,6 @@ def _load_algs_from_file(file):
     return algorithms
 
 
-Processing.initialize()
 _algorithms = {"gdal": _load_algs_from_file('res/algs/gdal.csv'),
                "qgis": _load_algs_from_file('res/algs/qgis.csv')}
 
@@ -160,10 +159,14 @@ class ProcessingTreeView(QTreeView):
         self.expandAll()
 
     def onDoubleClick(self, index: QModelIndex):
-        _id = _algorithms[index.parent().data()][index.data()]
-        alg = QgsApplication.processingRegistry().createAlgorithmById(_id)
-        dlg = AlgorithmDialog(alg, parent=self)
-        dlg.show()
+        if not index.parent().isValid():
+            self.expand(index.parent())
+        else:
+            # 没有处理找不到算法的情况
+            _id = _algorithms[index.parent().data()][index.data()]
+            alg = QgsApplication.processingRegistry().createAlgorithmById(_id)
+            dlg = AlgorithmDialog(alg, parent=self)
+            dlg.show()
 
 
 if __name__ == '__main__':
@@ -175,6 +178,6 @@ if __name__ == '__main__':
     Processing.initialize()
     win = ProcessingTreeView()
 
-    win.expandAll()
+    # win.expandAll()
     win.show()
     app.exec_()
