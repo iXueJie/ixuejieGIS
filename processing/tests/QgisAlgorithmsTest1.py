@@ -2,7 +2,7 @@
 
 """
 ***************************************************************************
-    QgisAlgorithmTests2.py
+    QgisAlgorithmTests.py
     ---------------------
     Date                 : January 2016
     Copyright            : (C) 2016 by Matthias Kuhn
@@ -25,17 +25,38 @@ import AlgorithmsTestBase
 
 import nose2
 import shutil
-import os
 
 from qgis.core import (QgsApplication,
+                       QgsProcessingAlgorithm,
+                       QgsProcessingFeedback,
                        QgsProcessingException)
-from qgis.analysis import (QgsNativeAlgorithms)
 from qgis.testing import start_app, unittest
-from processing.core.ProcessingConfig import ProcessingConfig
-from processing.modeler.ModelerUtils import ModelerUtils
+from processing.tools.dataobjects import createContext
 
 
-class TestQgisAlgorithms3(unittest.TestCase, AlgorithmsTestBase.AlgorithmsTest):
+class TestAlg(QgsProcessingAlgorithm):
+
+    def __init__(self):
+        super().__init__()
+
+    def name(self):
+        return 'testalg'
+
+    def displayName(self):
+        return 'testalg'
+
+    def initAlgorithm(self, config=None):
+        pass
+
+    def createInstance(self):
+        return TestAlg()
+
+    def processAlgorithm(self, parameters, context, feedback):
+        raise QgsProcessingException('Exception while processing')
+        return {}
+
+
+class TestQgisAlgorithms(unittest.TestCase, AlgorithmsTestBase.AlgorithmsTest):
 
     @classmethod
     def setUpClass(cls):
@@ -54,7 +75,29 @@ class TestQgisAlgorithms3(unittest.TestCase, AlgorithmsTestBase.AlgorithmsTest):
             shutil.rmtree(path)
 
     def test_definition_file(self):
-        return 'qgis_algorithm_tests3.yaml'
+        return 'qgis_algorithm_tests1.yaml'
+
+    def testProcessingException(self):
+        """
+        Test that Python exception is caught when running an alg
+        """
+
+        alg = TestAlg()
+        context = createContext()
+        feedback = QgsProcessingFeedback()
+        results, ok = alg.run({}, context, feedback)
+        self.assertFalse(ok)
+
+    def testParameterPythonImport(self):
+        for t in QgsApplication.processingRegistry().parameterTypes():
+            import_string = t.pythonImportString()
+            # check that pythonImportString correctly imports
+            exec(import_string)
+            # and now we should be able to instantiate an object!
+            if t.className() == 'QgsProcessingParameterProviderConnection':
+                exec('test = {}(\'id\',\'name\', \'provider\')\nself.assertIsNotNone(test)'.format(t.className()))
+            else:
+                exec('test = {}(\'id\',\'name\')\nself.assertIsNotNone(test)'.format(t.className()))
 
 
 if __name__ == '__main__':

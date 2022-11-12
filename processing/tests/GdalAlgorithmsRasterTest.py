@@ -33,7 +33,6 @@ from qgis.core import (QgsProcessingContext,
                        QgsReferencedRectangle,
                        QgsRasterLayer,
                        QgsProject,
-                       QgsProjUtils,
                        QgsPointXY,
                        QgsCoordinateReferenceSystem)
 

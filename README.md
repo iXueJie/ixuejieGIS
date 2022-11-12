@@ -76,3 +76,8 @@ import puzzle
 your_puzzle_set = puzzle.PuzzleSet('puzzle_set_example.json', shuffle=True)
 ~~~
 
+
+
+#### 最后的话
+
+试炼最后还有限时小作文 `ui\EssayWidget.ui` 没有实现，有兴趣的朋友可以尝试完善并添加到你的代码里。

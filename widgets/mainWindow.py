@@ -2,7 +2,7 @@ import threading
 from PyQt5 import uic
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QAction, QFileDialog
-from plugins.processing.gui.AlgorithmDialog import AlgorithmDialog
+from processing.gui import AlgorithmDialog
 from qgis._core import QgsApplication, QgsStyle, QgsLayerTreeModel, QgsProject, QgsVectorLayer
 from qgis._gui import QgsMapToolZoom, QgsMapToolPan, QgsMapCanvas, QgsLayerTreeView, QgsLayerTreeMapCanvasBridge
 
@@ -105,7 +105,8 @@ class MainWindow(QMainWindow):
 
     def load_layer(self, filters=""):
         fullpath, formats = self.open_file(filters)
-        if fullpath is None:
+        if not fullpath:
+            # 未选择任何文件
             return
 
         canvas = self.canvas
@@ -216,4 +217,3 @@ class MainWindow(QMainWindow):
         self.algorithmTree = tmp
         self.searchBox.valueChanged.disconnect()
         self.searchBox.valueChanged.connect(self.algorithmTree.setFilterString)
-

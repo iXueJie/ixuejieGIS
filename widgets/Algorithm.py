@@ -11,7 +11,7 @@ from processing import AlgorithmDialog, Processing
 
 def _load_algs_from_file(file):
     algorithms = {}
-    with open(file, mode='r') as f:
+    with open(file, mode='r', encoding='utf8') as f:
         # 只加载文件中记录的算法
         reader = csv.reader(f)
         for _id, name in reader:

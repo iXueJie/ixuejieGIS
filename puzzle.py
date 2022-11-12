@@ -113,7 +113,7 @@ class PuzzleSet:
         if not os.path.exists(filepath):
             raise FileExistsError(f"{filepath}不存在，请检查路径和文件名是否正确。")
 
-        with open(filepath, "r") as _f:
+        with open(filepath, "r", encoding='utf8') as _f:
             tmp_set = json.load(_f, cls=PuzzleSetJSONDecoder)
             self.puzzles = tmp_set.puzzles
             if self.name == "":

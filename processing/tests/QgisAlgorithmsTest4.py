@@ -27,9 +27,7 @@ import nose2
 import shutil
 import os
 
-from qgis.core import (QgsApplication,
-                       QgsProcessingException)
-from qgis.analysis import (QgsNativeAlgorithms)
+from qgis.core import (QgsApplication)
 from qgis.testing import start_app, unittest
 from processing.core.ProcessingConfig import ProcessingConfig
 from processing.modeler.ModelerUtils import ModelerUtils

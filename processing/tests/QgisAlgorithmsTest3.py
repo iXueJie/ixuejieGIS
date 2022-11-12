@@ -25,17 +25,11 @@ import AlgorithmsTestBase
 
 import nose2
 import shutil
-import os
 
-from qgis.core import (QgsApplication,
-                       QgsProcessingException)
-from qgis.analysis import (QgsNativeAlgorithms)
 from qgis.testing import start_app, unittest
-from processing.core.ProcessingConfig import ProcessingConfig
-from processing.modeler.ModelerUtils import ModelerUtils
 
 
-class TestQgisAlgorithms2(unittest.TestCase, AlgorithmsTestBase.AlgorithmsTest):
+class TestQgisAlgorithms3(unittest.TestCase, AlgorithmsTestBase.AlgorithmsTest):
 
     @classmethod
     def setUpClass(cls):
@@ -54,7 +48,7 @@ class TestQgisAlgorithms2(unittest.TestCase, AlgorithmsTestBase.AlgorithmsTest):
             shutil.rmtree(path)
 
     def test_definition_file(self):
-        return 'qgis_algorithm_tests2.yaml'
+        return 'qgis_algorithm_tests3.yaml'
 
 
 if __name__ == '__main__':

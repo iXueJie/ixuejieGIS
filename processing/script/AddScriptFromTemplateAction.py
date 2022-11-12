@@ -44,7 +44,7 @@ class AddScriptFromTemplateAction(ToolboxAction):
 
         pluginPath = os.path.split(os.path.dirname(__file__))[0]
         templatePath = os.path.join(
-            pluginPath, 'script', 'ScriptTemplate.py')
+            pluginPath, '../../res/script', 'ScriptTemplate.py')
 
         with codecs.open(templatePath, 'r', encoding='utf-8') as f:
             templateTxt = f.read()

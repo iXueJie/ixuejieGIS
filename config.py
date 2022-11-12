@@ -8,7 +8,7 @@ def _config():
     import sys
     sys.path.append('plugins')
 
-    from plugins.processing.core.Processing import Processing
+    from processing.core.Processing import Processing
     Processing.initialize()
 
 
