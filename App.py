@@ -12,21 +12,21 @@ class App:
     def __init__(self):
         import qdarkstyle
         self.qgs = QgsApplication([], True)
+        self.splash = SplashScreen()
+        self.splash.show()
         QFontDatabase.addApplicationFont('res/font/FZJunLTJW_Zhun.TTF')
         QFontDatabase.addApplicationFont('res/font/HarmonyOS_Sans_SC_Medium.ttf')
         QFontDatabase.addApplicationFont('res/font/段宁毛笔行书修订版.ttf')
         self.qgs.setWindowIcon(QIcon('res/icon/cc/257625.jpg'))
+        self.qgs.setQuitOnLastWindowClosed(True)
         self.qgs.setPrefixPath('qgis', True)
         self.qgs.initQgis()
-        self.qgs.setQuitOnLastWindowClosed(True)
         self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5', palette=qdarkstyle.LightPalette))
         # self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
         self.win = MainWindow()
-        self.splash = SplashScreen()
         config.setup_env()
 
     def run(self):
-        self.splash.show()
         time.sleep(2.5)
         self.win.show()
         self.splash.finish(self.win)
