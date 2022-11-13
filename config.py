@@ -3,13 +3,10 @@
 """
 
 
-def _config():
+def setup_env():
     # 局部引用，不要污染全局命名空间
     import sys
     sys.path.append('plugins')
 
-    from processing.core.Processing import Processing
+    from processing import Processing
     Processing.initialize()
-
-
-_config()

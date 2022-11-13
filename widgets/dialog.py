@@ -12,8 +12,8 @@ from qgis._core import QgsVectorLayerCache, QgsVectorLayer, QgsProject, QgsLayou
     QgsLayoutItemScaleBar, QgsLayoutItemMapGrid, QgsApplication
 from qgis._gui import QgsAttributeTableModel, QgsAttributeTableFilterModel, QgsAttributeTableView, QgsMapCanvas
 
-from utils import Accumulator
 from puzzle import PuzzleSet
+from utils import Accumulator
 
 
 class AttributeTableDialog(QDialog):
@@ -233,7 +233,7 @@ class SystemWidget(QWidget):
     def actionBackdoorTriggerd(self):
         self.prompt.setStyleSheet('QLabel {font: 30pt "段宁毛笔行书(修订版）";}')
         self.prompt.setText("三年之期已到,恭迎龙王")
-        threading.Timer(2, function=self.backdoor.emit).start()
+        self.backdoor.emit()
 
 
 class ForgeDialog(QDialog):
@@ -262,7 +262,7 @@ class ForgeDialog(QDialog):
 
         self.trialEnd = threading.Event()
 
-        self.system_widget.backdoor.connect(self.trialDone.emit)
+        self.system_widget.backdoor.connect(self._skipTrail)
         self.trialBeginWith.connect(self._toTrial)
         self.trialDone.connect(self.close)
 
@@ -278,11 +278,11 @@ class ForgeDialog(QDialog):
             self.trialBeginWith.emit(puzzle_set)
             self.trialEnd.wait()
 
-        self._toSystem("")
-        _non_blocking_sleep(1.5)
+        self._toSystem('哦不，纳西妲没有题目了...')
+        _non_blocking_sleep(1.75)
 
         self._toSystem("恭喜你，完成了纳西妲的试炼，领取你的奖励吧！")
-        _non_blocking_sleep(1.5)
+        _non_blocking_sleep(2.5)
         self.trialDone.emit()
 
     def _toTrial(self, puzzle_set: PuzzleSet):
@@ -318,16 +318,18 @@ class ForgeDialog(QDialog):
         t.setDaemon(True)
         t.start()
 
-    def _toSystem(self, prompt):
-        self.system_widget.setPrompt(prompt)
+    def _toSystem(self, prompt=''):
+        if prompt != '':
+            self.system_widget.setPrompt(prompt)
         if self.current_widget is not self.system_widget:
             last_item = self.layout().replaceWidget(self.current_widget, self.system_widget)
             last_item.widget().close()
             self.current_widget = self.system_widget
 
-    def skipTrail(self):
-        print("skip")
-
+    def _skipTrail(self):
+        self.titleWidget.close()
+        self._toSystem()
+        threading.Timer(4, self.trialDone.emit).start()
 
 class ForgeTipWidget(QFrame):
 
@@ -363,6 +365,6 @@ if __name__ == "__main__":
     app.setPrefixPath('qgis', True)
     app.initQgis()
     app.setQuitOnLastWindowClosed(True)
-    win = EssayWidget()
+    win = ForgeDialog()
     win.show()
     exit(app.exec_())

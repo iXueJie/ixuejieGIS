@@ -23,6 +23,7 @@ class App:
         # self.qgs.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
         self.win = MainWindow()
         self.splash = SplashScreen()
+        config.setup_env()
 
     def run(self):
         self.splash.show()
